@@ -132,9 +132,6 @@ ${podLog.body}`;
 
 const deleteJob = async (client: Api.ApiRoot, namespace: string, jobName: string) => {
   try {
-    // const jobDelete = promisify(
-    //   batchApi.namespaces(openshiftProject).jobs(jobName).delete
-    // );
     const options = {
       body: {
         kind: 'DeleteOptions',
@@ -143,13 +140,6 @@ const deleteJob = async (client: Api.ApiRoot, namespace: string, jobName: string
       }
     };
     await client.apis.batch.v1.namespaces(namespace).jobs(jobName).delete(options)
-    // await jobDelete({
-    //   body: {
-    //     kind: 'DeleteOptions',
-    //     apiVersion: 'v1',
-    //     propagationPolicy: 'Foreground',
-    //   },
-    // });
   } catch (err) {
     logger.error(`Couldn't delete job ${jobName}. Error: ${err}`);
   }
